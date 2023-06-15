@@ -67,7 +67,7 @@ app.post('/rastrear', (req, res) => {
                     else
 
                         if(evento.unidade.tipo === 'País')
-                            unidadeDestino.nome + ' - ' + evento.unidadeDestino.endereco.uf;
+                            unidade.nome + ' - ' + evento.unidade.endereco.uf;
                         else 
                             unidadeDestino.nome + ' - ' + evento.unidadeDestino.endereco.cidade + '/' + evento.unidadeDestino.endereco.uf;
                 }
