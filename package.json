@@ -1,0 +1,12 @@
+{
+  "name": "correio-api-heroku",
+  "version": "1.0.0",
+  "description": "API para rastrear encomendas dos correios",
+  "main": "index.js",
+  "dependencies": {
+    "correios-brasil": "^3.0.4"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
