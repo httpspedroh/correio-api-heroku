@@ -26,33 +26,50 @@ app.post('/rastrear', (req, res) => {
                 
                 const evento = eventos[j];
                 const data = new Date(evento.dtHrCriado);
-                let origem, destino;
+                let origem, destino, descricao;
 
                 if (evento.descricao != 'Objeto em trânsito - por favor aguarde') {
+
                     destino = null;
 
+                    if(evento.descricao === 'Objeto recebido na unidade de exportação no país de origem') descricao = 'Objeto recebido na unidade de exportação';
+
                     if (Object.keys(evento.unidade.endereco).length === 0) {
-                    if (evento.unidade.tipo === 'País') origem = evento.unidade.nome + ' - Internacional';
-                    else origem = evento.unidade.nome;
-                    } else {
+
+                        if (evento.unidade.tipo === 'País') 
+                            origem = evento.unidade.nome + ' - Internacional';
+                        else 
+                            origem = evento.unidade.nome;
+                    } 
+                    else {
+
                         if (evento.unidade.tipo === 'Unidade de Logística Integrada')
                             origem = 'Unidade de Logística - ' + evento.unidade.endereco.cidade + '/' + evento.unidade.endereco.uf;
-                        else origem = evento.unidade.tipo + ' - ' + evento.unidade.endereco.cidade + '/' + evento.unidade.endereco.uf;
+                        else 
+                            origem = evento.unidade.tipo + ' - ' + evento.unidade.endereco.cidade + '/' + evento.unidade.endereco.uf;
                     }
-                } else {
+                } 
+                else {
+
+                    descricao = 'Objeto em trânsito';
+
                     if (evento.unidade.tipo === 'Unidade de Logística Integrada')
-                    origem = 'Unidade de Logística - ' + evento.unidade.endereco.cidade + '/' + evento.unidade.endereco.uf;
-                    else origem = evento.unidade.tipo + ' - ' + evento.unidade.endereco.cidade + '/' + evento.unidade.endereco.uf;
+                        origem = 'Unidade de Logística - ' + evento.unidade.endereco.cidade + '/' + evento.unidade.endereco.uf;
+                    else 
+                        
+                        if(evento.unidade.tipo === 'País')
+                            origem = evento.unidade.nome + ' - Internacional';
+                        else    
+                            origem = evento.unidade.tipo + ' - ' + evento.unidade.endereco.cidade + '/' + evento.unidade.endereco.uf;
 
                     if (evento.unidadeDestino.tipo === 'Unidade de Logística Integrada')
-                    destino =
-                        'Unidade de Logística - ' +
-                        evento.unidadeDestino.endereco.cidade +
-                        '/' +
-                        evento.unidadeDestino.endereco.uf;
+                        destino = 'Unidade de Logística - ' + evento.unidadeDestino.endereco.cidade + '/' + evento.unidadeDestino.endereco.uf;
                     else
-                    destino =
-                        evento.unidadeDestino.nome + ' - ' + evento.unidadeDestino.endereco.cidade + '/' + evento.unidadeDestino.endereco.uf;
+
+                        if(evento.unidade.tipo === 'País')
+                            unidadeDestino.nome + ' - ' + evento.unidadeDestino.endereco.uf;
+                        else 
+                            unidadeDestino.nome + ' - ' + evento.unidadeDestino.endereco.cidade + '/' + evento.unidadeDestino.endereco.uf;
                 }
 
                 const evento_js = {
