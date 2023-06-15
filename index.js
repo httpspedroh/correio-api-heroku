@@ -31,6 +31,7 @@ app.post('/rastrear', (req, res) => {
                 if (evento.descricao != 'Objeto em trânsito - por favor aguarde') {
 
                     destino = null;
+                    descricao = evento.descricao;
 
                     if(evento.descricao === 'Objeto recebido na unidade de exportação no país de origem') descricao = 'Objeto recebido na unidade de exportação';
 
@@ -67,15 +68,15 @@ app.post('/rastrear', (req, res) => {
                     else
 
                         if(evento.unidade.tipo === 'País')
-                            unidade.nome + ' - ' + evento.unidade.endereco.uf;
+                            destino = evento.unidadeDestino.nome + ' - ' + evento.unidadeDestino.endereco.uf;
                         else 
-                            unidadeDestino.nome + ' - ' + evento.unidadeDestino.endereco.cidade + '/' + evento.unidadeDestino.endereco.uf;
+                            destino = evento.unidadeDestino.nome + ' - ' + evento.unidadeDestino.endereco.cidade + '/' + evento.unidadeDestino.endereco.uf;
                 }
 
                 const evento_js = {
 
                     "data": data.toISOString(),
-                    "descricao": evento.descricao,
+                    "descricao": descricao,
                     "origem": origem,
                     "destino": destino,
                 };
