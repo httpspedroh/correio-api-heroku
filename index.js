@@ -92,7 +92,7 @@ app.post('/rastrear', (req, res) => {
             response_js.push(objeto_js);
         }
 
-        res.json(response_js)}).catch((error) => { res.status(500).json({ error: 'Erro ao rastrear encomendas.' }); });
+        res.json(response_js)}).catch((error) => { res.status(500).json({ error: 'Erro ao rastrear encomendas: ' + error }); });
     });
 
     app.listen(process.env.PORT || 3000, () => {
