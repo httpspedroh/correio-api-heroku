@@ -5,8 +5,12 @@ const rastrearEncomendas = require('correios-brasil').rastrearEncomendas;
 
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => { res.send('API dos Correios'); });
+
 app.post('/rastrear', (req, res) => {
   const codRastreio = req.body.codigos || [];
+
+  // body example with codes 'NL609847554BR', 'NL587173487BR': { "codigos": ["NL609847554BR", "NL587173487BR"] }
 
   if (codRastreio.length === 0) {
     return res.status(400).json({ error: 'Nenhum código de rastreamento fornecido.' });
